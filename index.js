@@ -14,12 +14,31 @@ function addContact() {
     fs.writeFileSync('./data.json', content, { encoding: 'utf8' });
 }
 
-function lookingContact() {
+function lookingContactTen() {
     var tencantim = readlineSync.question('nhap ten can tim:');
+    var tam = 0;
     for (var so of danhba) {
         if (tencantim === so.name) {
             console.log(so.name, so.sdt);
+            tam += 1;
         }
+    }
+    if (tam === 0) {
+        console.log('khong tim thay ten nay trong danh ba');
+    }
+}
+
+function lookingContactSdt() {
+    var sdtcantim = readlineSync.question('nhap sdt can tim:');
+    var t = 0;
+    for (var so of danhba) {
+        if (parseInt(sdtcantim) === so.sdt) {
+            console.log(so.name, so.sdt);
+            t += 1;
+        }
+    }
+    if (t === 0) {
+        console.log('khong tim thay sdt nay trong danh ba');
     }
 }
 
@@ -47,9 +66,10 @@ function lisContact() {
 
 function luaChon() {
     console.log('1. them du lieu contact');
-    console.log('2. tim kiem contact, va hien len');
-    console.log('3. xoa du lieu contact');
-    console.log('4. list contact')
+    console.log('2. tim kiem contact theo ten, va hien len');
+    console.log('3. tim kiem contact theo sdt, va hien len');
+    console.log('4. xoa du lieu contact');
+    console.log('5. list contact')
     var chucnang = readlineSync.question('>');
     switch (chucnang) {
         case '1':
@@ -57,14 +77,18 @@ function luaChon() {
             luaChon();
             break;
         case '2':
-            lookingContact();
+            lookingContactTen();
             luaChon();
             break;
         case '3':
-            delContact();
+            lookingContactSdt();
             luaChon();
             break;
         case '4':
+            delContact();
+            luaChon();
+            break;
+        case '5':
             lisContact();
             luaChon();
             break;
